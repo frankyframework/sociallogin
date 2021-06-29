@@ -10,7 +10,7 @@ if (function_exists('bind_textdomain_codeset'))
 
 
 
-$MyMetatag->setJs("/public/ajax/sociallogin/ajax.sociallogin.js");
+$MyMetatag->setJs("/modulos/sociallogin/web/js/ajax.sociallogin.js");
 
 if($MySession->LoggedIn() && $MySession->GetVar( 'social' ) == false)
 {

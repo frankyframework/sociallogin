@@ -1,0 +1,32 @@
+{
+    "data":[
+        {
+            "php":"pasarela.php",
+            "css":[],
+            "js":[],
+            "jquery":[],
+            "permisos":[1,2],
+            "constante":"SOCIALLOGIN_PASARELA",
+            "url":"social-login/pasarela/[provider]/",
+            "nombre":"Social login pasarela",
+            "ajax":[],
+            "status":1,
+            "editable":1,
+            "modulo":"sociallogin"
+        },
+        {
+            "php":"callback.php",
+            "css":[],
+            "js":[],
+            "jquery":[],
+            "permisos":[],
+            "constante":"SOCIALLOGIN_CALLBACK",
+            "url":"social-login/callback/[provider]/",
+            "nombre":"Social login callback",
+            "ajax":[],
+            "status":1,
+            "editable":1,
+            "modulo":"sociallogin"
+        }   
+     ]
+}

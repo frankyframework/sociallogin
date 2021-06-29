@@ -1,0 +1,61 @@
+{
+    "schema" :
+    {
+        "attributes":[
+            {
+                "name":"id",
+                "type":"int",
+                "length":11,
+                "null":0,
+                "auto_increment":1
+            },
+            {
+                "name":"id_user",
+                "type":"int",
+                "length":11,
+                "null":0
+            },
+            {
+                "name":"red",
+                "type":"varchar",
+                "length":255,
+                "null":0
+            },
+            {
+                "name":"id_red",
+                "type":"varchar",
+                "length":255,
+                "null":0
+            },
+            {
+                "name":"info",
+                "type":"text",
+                "null":0
+            },
+            {
+                "name":"registro",
+                "type":"int",
+                "length":11,
+                "default":0,
+                "null":0
+            }
+
+        ],
+        "config":{
+            "primary":"id",
+            "keys":
+            {
+                "users" : {
+                    "foreing" : "id",
+                    "local":"id_user",
+                    "delete":"NO ACTION",
+                    "update":"NO ACTION"
+                }
+                }
+            ,
+            "engine":"InnoDB"
+        }
+    },
+    "data":[]
+}
+
