@@ -1,0 +1,23 @@
+{
+    "name": "frankyframework/sociallogin",
+    "type": "franky-module",
+    "description": "Social login",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "authors": [
+        {
+            "name": "Ussiel Acevedo",
+            "email": "ussiel@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "facebook/graph-sdk": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sociallogin\\": "src/"
+        }
+    },
+    "license": "MIT"
+}
