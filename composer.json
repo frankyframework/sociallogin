@@ -24,6 +24,6 @@
         "installer-paths": {
             "modulos/{$name}": ["frankyframework/sociallogin"]
         }
-    }
+    },
     "license": "MIT"
 }
