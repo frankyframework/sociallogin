@@ -20,10 +20,5 @@
             "Sociallogin\\": "src/"
         }
     },
-    "extra": {
-        "installer-paths": {
-            "modulos/{$name}": ["frankyframework/sociallogin"]
-        }
-    },
     "license": "MIT"
 }
