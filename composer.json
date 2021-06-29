@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": ">=7.0",
+        "composer/installers": "~1.0",
         "facebook/graph-sdk": "^5.7"
     },
     "autoload": {
@@ -19,5 +20,10 @@
             "Sociallogin\\": "src/"
         }
     },
+    "extra": {
+        "installer-paths": {
+            "modulos/{$name}": ["frankyframework/sociallogin"]
+        }
+    }
     "license": "MIT"
 }
