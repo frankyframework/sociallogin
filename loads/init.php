@@ -1,7 +1,7 @@
 <?php
 include 'constantes.php';
 include 'util.php';
-bindtextdomain("sociallogin", PROJECT_DIR .'/modulos/socialogin/locale');
+__bindtextdomain("sociallogin","sociallogin");
 
 if (function_exists('bind_textdomain_codeset')) 
 {
