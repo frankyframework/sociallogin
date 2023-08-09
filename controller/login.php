@@ -108,7 +108,7 @@ else
             $MyUserEntity->setUsuario($nickname);
             $MyUserEntity->setEmail($email);
             $MyUserEntity->setNombre($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["name"]);
-            $MyUserEntity->setNivel(NIVEL_USERSUSCRIPTOR);
+            $MyUserEntity->setRole(getCoreConfig("base/user/default-role"));
             $MyUserEntity->setSexo($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["gender"]);
             
             $MyUserEntity->setStatus(1);
