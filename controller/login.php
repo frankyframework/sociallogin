@@ -5,7 +5,7 @@ use Base\entity\AvataresEntity;
 use Franky\Core\ObserverManager;
 $MyUser             = new \Base\model\USERS();
 $ObserverManager = new ObserverManager;
-$MySocialLogin = new \Sociallogin\model\socialLogin("users","usuario",1,array("status" => "1"));
+$MySocialLogin = new \Sociallogin\model\socialLogin("users","email",1,array("status" => "1"));
 
 
 $usuario	= $MyRequest->getRequest('usuario');
@@ -94,18 +94,12 @@ else
 
             $MyUserEntity    = new entityUser();
 
-            $nickname = $_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["nickname"];
-            $i =1;
-            while($MyUser->findUser($nickname) == REGISTRO_SUCCESS)
-            {
-                $nickname = $nickname.$i++;
-            }
+          
             if($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["birthday"] != '--')
             {
                 $MyUserEntity->setFecha_nacimiento($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["birthday"]);
             }
 
-            $MyUserEntity->setUsuario($nickname);
             $MyUserEntity->setEmail($email);
             $MyUserEntity->setNombre($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["name"]);
             $MyUserEntity->setRole(getCoreConfig("base/user/default-role"));

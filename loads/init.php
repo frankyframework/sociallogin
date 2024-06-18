@@ -15,7 +15,7 @@ $MyMetatag->setJs("/modulos/sociallogin/web/js/ajax.sociallogin.js");
 if($MySession->LoggedIn() && $MySession->GetVar( 'social' ) == false)
 {
     
-    $MySocialLogin = new \Sociallogin\model\socialLogin("users",array("usuario","email"),"contrasena",array("status" => "1"));
+    $MySocialLogin = new \Sociallogin\model\socialLogin("users",array("telefono","email"),"contrasena",array("status" => "1"));
     $MySocialLogin->getSocial($MySession->GetVar('id'));
     
     $MySession->SetVar('social',     $MySocialLogin->m_social_data);
