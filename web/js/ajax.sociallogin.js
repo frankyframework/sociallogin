@@ -71,7 +71,7 @@ function removeConnectionHTML(response, provider)
 }
 
 $(document).ready(function(){
-   $('.button-facebook').on('click', function (e) {
+   $('.button-facebook-connect').on('click', function (e) {
    var url = "/social-login/pasarela/facebook/";
    new_window = window.open(url, 'Facebook', 'height=500,width=900,resizable=false,scrollbars=no');
    e.preventDefault();

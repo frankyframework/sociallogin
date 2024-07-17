@@ -1,0 +1,16 @@
+<?xml version='1.0' standalone='yes'?>
+<mensajes>
+    <prefijo>sociallogin_</prefijo>
+        <mensaje>
+        <llave>email_duplicate</llave>
+        <valor>Ya existe un usuario con este email, primero inicia sesion con tu email y asocia tu cuenta a Facebook</valor>
+    </mensaje>
+    <mensaje>
+        <llave>allow_email</llave>
+        <valor>Permite conpartir tu email al login con Facebook</valor>
+    </mensaje>
+     <mensaje>
+        <llave>bad_login</llave>
+        <valor>Parece que no estas registrado, registrate con Facebook o relaciona tu cuenta para tener acceso</valor>
+    </mensaje>
+</mensajes>

@@ -1,12 +1,8 @@
 <div class="w_100 cont_admin_redes">
 
-  <h2>Ligar mis cuentas:</h2>
-
+  <h3>Ligar mis cuentas:</h3>
   <div  class="check-fb-connect-confirmacion form-group form-inline">
 	  <input type="checkbox" id="facebook_rel" name="facebook_rel"  <?php echo ($MyUserSocial->findSocial("", "facebook", $MySession->GetVar('id')) == REGISTRO_SUCCESS ? "checked='checked'" : ""); ?> />
-	  <a class="btn btn-default" href="javascript:void(0)" title="facebook-connect" onclick="$('#facebook_rel').click().change()" >Facebook</a>
-
+	  <a class="_btn _secondary" href="javascript:void(0)" title="facebook-connect" onclick="$('#facebook_rel').click().change()" ><i class="icon icon-facebook"> </i> Facebook</a>
   </div>
-
-
 </div>

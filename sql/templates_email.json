@@ -1,0 +1,20 @@
+{
+    "data":[
+        {
+            "id":2,
+            "nombre":"Registro Social login",
+            "id_transaccional":2,
+            "status":1,
+            "fecha":"2020-01-01 00:00:00",
+            "Asunto":"Alta de usuario social login",
+            "destinatario":["{email}"],
+            "cc":[],
+            "bcc":[],
+            "name_from":"Webmaster",
+            "email_from":"webmaster@test.com",
+            "reply":"webmaster@test.com",
+            "editable":1,
+            "html": "{header}<p>{nombre}</p><p>Gracias por registrarte en {nombre_web}. Si usted no se ha registrado haga caso omiso de este mensaje.</p><p>Usted se a registrado con facebook, para iniciar sesion use el boton \"Conectarme con Facebook\"</p>{footer}"
+        }      
+    ]
+}

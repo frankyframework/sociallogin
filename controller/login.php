@@ -38,9 +38,9 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
     $MySession->SetVar('social',    $MySocialLogin->m_social_data);
 
     $ObserverManager->dispatch('sociallogin_user');
-    $ObserverManager->dispatch('sociallogin_user_'.$MySocialLogin->nivel,[$MySocialLogin->id]);
+    $ObserverManager->dispatch('sociallogin_user_'.$MySocialLogin->role,[$MySocialLogin->id]);
     $ObserverManager->dispatch('login_user');
-    $ObserverManager->dispatch('login_user_'.$MySocialLogin->nivel,[$MySocialLogin->id]);
+    $ObserverManager->dispatch('login_user_'.$MySocialLogin->role,[$MySocialLogin->id]);
 
     if(!empty($_callback))
     {
@@ -48,7 +48,7 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
     }
     else
     {
-        $location = $MyRequest->url(ADMIN);
+        $location = $MyRequest->url(MI_CUENTA);
     }
 
 
@@ -59,10 +59,18 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
             $_SESSION['my_social_data']["provider"],
             addslashes(json_encode($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]])));
 
+    if(file_exists($MyConfigure->getServerUploadDir()."/avatar/facebook/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg")) {
+            unlink($MyConfigure->getServerUploadDir()."/avatar/facebook/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg");
+    }
+    downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id']);
 }
-else
+else 
 {
-
+    if(getCoreConfig("sociallogin/facebook/conection") == "login") {
+        $MyFlashMessage->setMsg("error",$MyMessageAlert->Message("sociallogin_bad_login",$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["email"]));
+        $location = $MyRequest->getReferer();
+        $MyRequest->redirect($location);
+    }
 
    $f =  explode ("-",$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["birthday"]);//aaaa-mm-dd
 
@@ -70,7 +78,7 @@ else
     if($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["email"] != "" && $MyUser->findEmail($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["email"]) == REGISTRO_SUCCESS)
     {
 
-         $MyFlashMessage->setMsg("error",$MyMessageAlert->Message("email_duplicate",$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["email"]));
+        $MyFlashMessage->setMsg("error",$MyMessageAlert->Message("sociallogin_email_duplicate",$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["email"]));
         $location = $MyRequest->getReferer();
     }
     else
@@ -80,14 +88,10 @@ else
 
         if(empty($email))
         {
-            if(empty($email))
-            {
-                $email = $nickname."@facebook.com";
-            }
+            $MyFlashMessage->setMsg("error",$MyMessageAlert->Message("sociallogin_allow_email",$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["email"]));
+            $location = $MyRequest->getReferer();
+            $MyRequest->redirect($location);
         }
-
-
-        $contrasena = substr(md5(uniqid()),0,10);
 
         if(isset($_SESSION['my_social_data']["provider"]))
         {
@@ -136,15 +140,16 @@ else
                 $MySession->SetVar('social',     $MySocialLogin->m_social_data);
 
 
-               
+                downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id']);
                 $AvataresEntity = new AvataresEntity;
                 $AvataresModel = new AvataresModel();
                 $AvataresEntity->id_user($ult_id);
+                
                 $AvataresEntity->name($_SESSION['my_social_data']["provider"]);
-                $AvataresEntity->url($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["avatar"]);
-
+                $AvataresEntity->status(1);
+                $AvataresEntity->url($MyRequest->link($MyConfigure->getUploadDir()."/avatar/facebook/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg",false,true));
                 $AvataresModel->save($AvataresEntity->getArrayCopy());
-
+                
 
                 $AvataresEntity->name('gravatar');
                 $AvataresEntity->url("https://www.gravatar.com/avatar/" . md5( strtolower( trim( $MyUserEntity->getEmail() ) ) ));
@@ -154,6 +159,25 @@ else
                 $ObserverManager->dispatch('register_new_user',[$MySocialLogin->id]);
                 $ObserverManager->dispatch('socialregister_new_user',[$MySocialLogin->id]);
 
+                $campos = array(
+                    'url'               =>      $MyRequest->getSERVER(),
+                    'email'		=>	$MyUserEntity->getEmail(),
+                    'fecha'		=>	date('Y-m-d'),
+                    'nombre_web'   =>  $MyRequest->getSERVER(),
+                    'provider' => $_SESSION['my_social_data']["provider"]
+
+            );
+
+                $TemplateemailModel    = new \Base\model\TemplateemailModel;
+                $TemplateemailEntity    = new \Base\entity\TemplateemailEntity;
+                $TemplateemailEntity->id(getCoreConfig('sociallogin/facebook/email-template-newuser'));
+                $TemplateemailModel->getData($TemplateemailEntity->getArrayCopy());
+
+
+                $registro  = $TemplateemailModel->getRows();
+
+                sendEmail($campos,$registro);
+                
                 if(!empty($_callback))
                 {
                     $location =$_callback;
@@ -164,7 +188,7 @@ else
                 }
                 else
                 {
-                    $location =$MyRequest->url(ADMIN);
+                    $location =$MyRequest->url(MI_CUENTA);
                 }
             }
             else {

@@ -25,4 +25,26 @@ function get_facebook_cookie($app_id, $app_secret)
     return $args;
 }
 
+
+function downloadAvatar($url,$id)
+{
+    global $MyConfigure;
+    $ch = curl_init($url); 
+    $dir = $MyConfigure->getServerUploadDir()."/avatar/facebook/";
+    if (!file_exists($dir))
+    {
+         mkdir($dir, 0777);
+    }
+    $save_file_loc = $dir . $id.".jpg"; 
+  
+    $fp = fopen($save_file_loc, 'wb'); 
+  
+    curl_setopt($ch, CURLOPT_FILE, $fp); 
+    curl_setopt($ch, CURLOPT_HEADER, 0); 
+    curl_exec($ch); 
+  
+    curl_close($ch); 
+
+    fclose($fp); 
+}
 ?>
