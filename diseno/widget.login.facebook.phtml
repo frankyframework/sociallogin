@@ -1,7 +1,14 @@
 <div class="w_100 cont_admin_redes">
 
   <h2 class="align_center">Usa tus redes sociales para conectarte</h2>
+  <?php if(in_array("facebook", $socialProviders)): ?>
   <div  class="fb-connect form-group form-inline align_center">
-    <a class="button-facebook-connect _btn _btn-primary" href="#"><i class="icon icon-facebook"> </i> Conectate con facebook</a>
+    <a id="button-facebook-connect" class="button-facebook-connect" href="#"><i class="icon icon-facebook"> </i> Conectate con facebook</a>
   </div>
+  <?php endif; ?>
+  <?php if(in_array("google", $socialProviders)): ?>
+    <div  class="google-connect form-group form-inline align_center">
+    <a id="button-google-connect" class="button-google-connect" data-g-id="<?=getCoreConfig('sociallogin/google/api')?>" href="#"><span class='icon-google'> </span> Conectate con google</a>
+    </div>
+  <?php endif; ?>
 </div>

@@ -22,4 +22,14 @@ if($MySession->LoggedIn() && $MySession->GetVar( 'social' ) == false)
 }
 
 $MyUserSocial = new \Sociallogin\model\UsersSocial();
+
+$socialProviders = getCoreConfig('sociallogin/config/redes');
+
+if(in_array("google", $socialProviders)) {
+
+    $MyMetatag->setCode("<script src=\"https://apis.google.com/js/platform.js?onload=loadGoogleLogin\" async defer></script>");
+    $MyMetatag->setCode("<meta name=\"google-signin-client_id\" content=\"".getCoreConfig('sociallogin/google/api').".apps.googleusercontent.com\">");
+}
+
+$MyMetatag->setCss("/modulos/sociallogin/web/css/sociallogin.css");
 ?>

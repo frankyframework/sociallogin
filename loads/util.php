@@ -26,11 +26,11 @@ function get_facebook_cookie($app_id, $app_secret)
 }
 
 
-function downloadAvatar($url,$id)
+function downloadAvatar($url,$id, $provider)
 {
     global $MyConfigure;
     $ch = curl_init($url); 
-    $dir = $MyConfigure->getServerUploadDir()."/avatar/facebook/";
+    $dir = $MyConfigure->getServerUploadDir()."/avatar/".$provider."/";
     if (!file_exists($dir))
     {
          mkdir($dir, 0777);
