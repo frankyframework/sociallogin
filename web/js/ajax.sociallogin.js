@@ -10,6 +10,20 @@ function addSocialData(provider)
 
 }
 
+function addGoogleSocialData(data)
+{
+    var var_query = {
+    "function": "addGoogleSocialData",
+    "vars_ajax":[data.credential]
+    };
+
+    var var_function = ["google"];
+
+    pasarelaAjax('GET', var_query, "addSocialDataHTML", var_function);
+
+}
+
+
 function addSocialDataHTML(response, provider)
 {
 
@@ -20,7 +34,6 @@ function addSocialDataHTML(response, provider)
 
         if (respuesta[0]["message"] == "success")
         {
-            $(".button-" + provider).children("img").attr("src", "/images/sociallogin/ico-cab-" + provider + "-duo.png")
             return true;
         }
         if (respuesta[0]["message"] == "duplicate")
@@ -92,12 +105,13 @@ $(document).ready(function(){
 
     $('#button-google-connect').on('click', function (e) {
         e.preventDefault();
+        loadGoogleLogin();
     });
 
     $('#google_rel').on('change', function (e) {
 
         if ($(this).is(":checked")) {
-            document.getElementById("button-google-connect").click()
+            loadGoogleLogin();
            
         }
         else
@@ -117,28 +131,11 @@ this.oauth_callback = function(result)
        }
 };
 
-function attachSigninGoogle(element) {
-    console.log(element.id);
-    auth2.attachClickHandler(element, {},
-        function(googleUser) {
-            var id_token = googleUser.getAuthResponse().id_token;
-            var url = "/social-login/callback/google/?id_token="+id_token;
-            new_window = window.open(url, 'Google', 'height=400,width=800,resizable=false,scrollbars=no');
-        }, function(error) {
-          //alert(JSON.stringify(error, undefined, 2));
-        });
-  }
-
 function loadGoogleLogin() {
-    gapi.load('auth2', function(){
-        // Retrieve the singleton for the GoogleAuth library and set up the client.
-        auth2 = gapi.auth2.init({
-        client_id: $("[data-g-id]").attr('data-g-id')+'.apps.googleusercontent.com',
-        cookiepolicy: 'single_host_origin',
-        // Request scopes in addition to 'profile' and 'email'
-        //scope: 'additional_scope'
-        });
-        attachSigninGoogle(document.getElementById('button-google-connect'));
-    });
 
+        google.accounts.id.initialize({
+          client_id: $("[data-g-id]").attr('data-g-id')+'.apps.googleusercontent.com',
+          callback: addGoogleSocialData
+        });
+        google.accounts.id.prompt();
 }

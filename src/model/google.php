@@ -14,30 +14,30 @@ class google {
         $this->api_secret = $secret;
     }
    
-    public function callback()
+    public function callback($id_token)
     {
         global $MySession;
-        global $MyRequest;
-        $id_token = $MyRequest->getRequest('id_token');
-        $client = new Google_Client(['client_id' =>  $this->api_key ]);  // Specify the CLIENT_ID of the app that accesses the backend
+
+        $client = new \Google_Client(['client_id' =>  $this->api_key.".apps.googleusercontent.com" ]);  // Specify the CLIENT_ID of the app that accesses the backend
         $payload = $client->verifyIdToken($id_token);
         if ($payload) {
-            $MySession->SetVar('google_access_token',(string) $id_token);
+            $MySession->SetVar('google_access_token',"");
+
+               
                 $me["id"]   = $payload['sub'];
                 $me["name"] = $payload['name']." ".$payload['family_name'];
                 $me["birthday"] = "--";
                 $me["gender"] = "";
-                $me["email"] = $payload['e,ail'];
+                $me["email"] = $payload['email'];
                 $me["avatar"] = $payload['picture'];
          
                 $_SESSION['my_social_data']["provider"] = "google";
                 $_SESSION['my_social_data']["google"] = $me;
-
-                return "success";
+                return true;
         }
         else
         {
-            return "error";
+            return false;
         }
     }
 }

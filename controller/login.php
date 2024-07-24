@@ -62,9 +62,9 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
     if(file_exists($MyConfigure->getServerUploadDir()."/avatar/".$_SESSION['my_social_data']["provider"]."/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg")) {
             unlink($MyConfigure->getServerUploadDir()."/avatar/".$_SESSION['my_social_data']["provider"]."/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg");
     }
-    if( $_SESSION['my_social_data']["provider"] == "facebook") {
-        downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'], $_SESSION['my_social_data']["provider"]);
-    }
+    
+    downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'], $_SESSION['my_social_data']["provider"]);
+    
 }
 else 
 {
@@ -141,9 +141,8 @@ else
                 $MySession->SetVar('is_login',    true);
                 $MySession->SetVar('social',     $MySocialLogin->m_social_data);
 
-                if( $_SESSION['my_social_data']["provider"] == "facebook") {
-                    downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'], $_SESSION['my_social_data']["provider"]);
-                }
+                downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'], $_SESSION['my_social_data']["provider"]);
+                
               
                 $AvataresEntity = new AvataresEntity;
                 $AvataresModel = new AvataresModel();

@@ -1,6 +1,4 @@
 <?php
-
-
 function addSocialData() {
     global $MySession;
     global $MyUserSocial;
@@ -35,15 +33,15 @@ function addSocialData() {
                     if(file_exists($MyConfigure->getServerUploadDir()."/avatar/".$_SESSION['my_social_data']["provider"]."/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg")) {
                         unlink($MyConfigure->getServerUploadDir()."/avatar/".$_SESSION['my_social_data']["provider"]."/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg");
                     }
-                    if( $_SESSION['my_social_data']["provider"] == "facebook") {
-                        downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'], $_SESSION['my_social_data']["provider"]);
-                    }
+                   
+                    downloadAvatar($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['avatar'],$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'], $_SESSION['my_social_data']["provider"]);
+                    
                     $AvataresModel = new \Base\model\AvataresModel();
                     $AvataresEntity = new \Base\entity\AvataresEntity();
 
                     $AvataresEntity->id_user($MySession->GetVar('id'));
                     $AvataresEntity->name($_SESSION['my_social_data']["provider"]);
-                    $AvataresEntity->url($MyRequest->link($MyConfigure->getUploadDir()."/avatar/facebook/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg",false,true));
+                    $AvataresEntity->url($MyRequest->link($MyConfigure->getUploadDir()."/avatar/". $_SESSION['my_social_data']["provider"]."/".$_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]['id'].".jpg",false,true));
                     $AvataresEntity->status(0);
                     $AvataresModel->save($AvataresEntity->getArrayCopy());
 
@@ -58,6 +56,20 @@ function addSocialData() {
          $respuesta[0]["message"] = "login";
     }
     return $respuesta;
+}
+
+function addGoogleSocialData($str) {
+    
+    $google = new \Sociallogin\model\google( getCoreConfig('sociallogin/google/api'), getCoreConfig('sociallogin/google/secret'));
+    
+    $result = $google->callback($str);
+   
+    if ($result) {
+        return addSocialData(); 
+    } else {
+        $respuesta[0]["message"] = "error";
+        return $respuesta;
+    }
 }
 
 function removeConnection($provider) {
@@ -99,3 +111,4 @@ function removeConnection($provider) {
 
 $MyAjax->register("addSocialData");
 $MyAjax->register("removeConnection");
+$MyAjax->register("addGoogleSocialData");

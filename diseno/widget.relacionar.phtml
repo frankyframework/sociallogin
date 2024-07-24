@@ -1,16 +1,20 @@
-<div class="w_100 cont_admin_redes">
+<?php if(!empty($socialProviders)): ?>
+<div class="_cont_dashboard _perfil">
+  <div class="w_100 cont_admin_redes">
 
-  <h3>Ligar mis cuentas:</h3>
-  <div  class="check-fb-connect-confirmacion form-group form-inline">
-  <?php if(in_array("facebook", $socialProviders)): ?>
-	  <input type="checkbox" id="facebook_rel" name="facebook_rel"  <?php echo ($MyUserSocial->findSocial("", "facebook", $MySession->GetVar('id')) == REGISTRO_SUCCESS ? "checked='checked'" : ""); ?> />
-	  <a class="button-facebook-connect facebook_rel" href="javascript:void(0)" title="facebook-connect" onclick="$('#facebook_rel').trigger('click')" ><i class="icon icon-facebook"> </i> Facebook</a>
-  <?php endif ?>
-  <?php if(in_array("google", $socialProviders)): ?>
-	  <input type="checkbox" id="google_rel" name="google_rel"  <?php echo ($MyUserSocial->findSocial("", "google", $MySession->GetVar('id')) == REGISTRO_SUCCESS ? "checked='checked'" : ""); ?> />
-	  <a class="button-google-connect" href="javascript:void(0)" title="google-connect" onclick="$('#google_rel').trigger('click')" >Google</a>
-    <a id="button-google-connect" data-g-id="<?=getCoreConfig('sociallogin/google/api')?>" href="#">  </a>
-  <?php endif ?>
-  
+    <h3>Ligar mis cuentas:</h3>
+    <div  class="check-fb-connect-confirmacion form-group form-inline">
+    <?php if(in_array("facebook", $socialProviders)): ?>
+      <input type="checkbox" id="facebook_rel" name="facebook_rel"  <?php echo ($MyUserSocial->findSocial("", "facebook", $MySession->GetVar('id')) == REGISTRO_SUCCESS ? "checked='checked'" : ""); ?> />
+      <a class="button-facebook-connect facebook_rel" href="javascript:void(0)" title="facebook-connect" onclick="$('#facebook_rel').trigger('click')" ><i class="icon icon-facebook"> </i> Facebook</a>
+    <?php endif ?>
+    <?php if(in_array("google", $socialProviders)): ?>
+      <input type="checkbox" id="google_rel" name="google_rel"  <?php echo ($MyUserSocial->findSocial("", "google", $MySession->GetVar('id')) == REGISTRO_SUCCESS ? "checked='checked'" : ""); ?> />
+      <a class="button-google-connect" href="javascript:void(0)" title="google-connect" onclick="$('#google_rel').trigger('click')" >Google</a>
+      <a id="button-google-connect" data-g-id="<?=getCoreConfig('sociallogin/google/api')?>" href="#">  </a>
+    <?php endif ?>
+    
+    </div>
   </div>
-</div>
+  </div>
+  <?php endif; ?>
