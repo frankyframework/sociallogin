@@ -3,14 +3,14 @@
     <prefijo>sociallogin_</prefijo>
         <mensaje>
         <llave>email_duplicate</llave>
-        <valor>Ya existe un usuario con este email, primero inicia sesion con tu email y asocia tu cuenta a Facebook</valor>
+        <valor>Ya existe un usuario con este email, primero inicia sesion con tu email y asocia tu cuenta</valor>
     </mensaje>
     <mensaje>
         <llave>allow_email</llave>
-        <valor>Permite conpartir tu email al login con Facebook</valor>
+        <valor>Permite compartir tu email para poder acceder</valor>
     </mensaje>
      <mensaje>
         <llave>bad_login</llave>
-        <valor>Parece que no estas registrado, registrate con Facebook o relaciona tu cuenta para tener acceso</valor>
+        <valor>Parece que no estas registrado, registrate con y relaciona tu cuenta para tener acceso</valor>
     </mensaje>
 </mensajes>
