@@ -11,6 +11,6 @@
     </mensaje>
      <mensaje>
         <llave>bad_login</llave>
-        <valor>Parece que no estas registrado, registrate con y relaciona tu cuenta para tener acceso</valor>
+        <valor>Parece que no estas registrado, registrate y relaciona tu cuenta para tener acceso</valor>
     </mensaje>
 </mensajes>
