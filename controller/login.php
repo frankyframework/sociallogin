@@ -109,8 +109,12 @@ else
             $MyUserEntity->setEmail($email);
             $MyUserEntity->setNombre($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["name"]);
             $MyUserEntity->setRole(getCoreConfig("base/user/default-role"));
-            $MyUserEntity->setSexo($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["gender"]);
             
+            if(getCoreConfig("base/user/showgender") == 0) {
+                $MyUserEntity->setSexo('');
+            } else {
+                $MyUserEntity->setSexo($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["gender"]);
+            }
             $MyUserEntity->setStatus(1);
             $MyUserEntity->setFecha(date('Y-m-d H:i:s'));
             $MyUserEntity->setVerificado(1);
