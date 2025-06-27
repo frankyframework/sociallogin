@@ -18,13 +18,12 @@ $error = false;
 
 if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["id"],$_SESSION['my_social_data']["provider"]) == LOGIN_SUCCESS)
 {
-
+    $inputs = $MySocialLogin->getInputs();
     $MyUserEntity    = new entityUser();
-    $MyUserEntity->setId($MySocialLogin->id);
+    $MyUserEntity->setId($inputs['id']);
     $MyUserEntity->setUltimoAcceso( date('Y-m-d'));
 
     $MyUser->save($MyUserEntity->getArrayCopy());
-    $inputs = $MySocialLogin->getInputs();
 
 
     foreach($inputs as $k)
