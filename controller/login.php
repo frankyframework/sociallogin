@@ -21,7 +21,7 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
     $inputs = $MySocialLogin->getInputs();
     $MyUserEntity    = new entityUser();
     $MyUserEntity->setId($inputs['id']);
-    $MyUserEntity->setUltimoAcceso( date('Y-m-d'));
+    $MyUserEntity->setUltimoAcceso( date('Y-m-d H:i:s'));
 
     $MyUser->save($MyUserEntity->getArrayCopy());
 
