@@ -26,10 +26,9 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
     $MyUser->save($MyUserEntity->getArrayCopy());
 
 
-    foreach($inputs as $k)
+    foreach($inputs as $k => $v)
     {
-
-        $MySession->SetVar($k,   	$MySocialLogin->{$k});
+        $MySession->SetVar($k,   	$v);
     }
 
 
@@ -37,9 +36,9 @@ if($MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_d
     $MySession->SetVar('social',    $MySocialLogin->m_social_data);
 
     $ObserverManager->dispatch('sociallogin_user');
-    $ObserverManager->dispatch('sociallogin_user_'.$MySocialLogin->role,[$MySocialLogin->id]);
+    $ObserverManager->dispatch('sociallogin_user_'.$inputs['role'],[$inputs['id']]);
     $ObserverManager->dispatch('login_user');
-    $ObserverManager->dispatch('login_user_'.$MySocialLogin->role,[$MySocialLogin->id]);
+    $ObserverManager->dispatch('login_user_'.$inputs['role'],[$$inputs['id']]);
 
     if(!empty($_callback))
     {
@@ -133,14 +132,15 @@ else
                 $MySocialLogin->authSocial($_SESSION['my_social_data'][$_SESSION['my_social_data']["provider"]]["id"],$_SESSION['my_social_data']["provider"]);
 
                 $MyUserEntity    = new entityUser();
-                $MyUserEntity->setId($MySocialLogin->id);
+                $MyUserEntity->setId($inputs['id']);
                 $MyUserEntity->setUltimoAcceso( date('Y-m-d'));
                 $MyUser->save($MyUserEntity->getArrayCopy());
                 $inputs = $MySocialLogin->getInputs();
-                foreach($inputs as $k)
+                foreach($inputs as $k => $v)
                 {
-                    $MySession->SetVar($k,   	$MySocialLogin->{$k});
+                    $MySession->SetVar($k,   	$v);
                 }
+
                 $MySession->SetVar('is_login',    true);
                 $MySession->SetVar('social',     $MySocialLogin->m_social_data);
 
