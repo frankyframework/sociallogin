@@ -3,7 +3,6 @@
         {
             "id":42,
             "nombre":"Registro Social login",
-            "id_transaccional":2,
             "status":1,
             "fecha":"2020-01-01 00:00:00",
             "Asunto":"Alta de usuario social login",

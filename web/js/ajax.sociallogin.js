@@ -135,7 +135,8 @@ function loadGoogleLogin() {
 
         google.accounts.id.initialize({
           client_id: $("[data-g-id]").attr('data-g-id')+'.apps.googleusercontent.com',
-          callback: addGoogleSocialData
+          callback: addGoogleSocialData,
+          use_fedcm_for_prompt: true 
         });
         google.accounts.id.prompt();
 }
